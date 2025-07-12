@@ -133,6 +133,15 @@ cat >/usr/local/bin/preX-populate-input.sh  << __EOF__
 ### Creates config file for X with all currently present input devices
 #   after connecting new device restart X (systemctl restart lightdm)
 ######################################################################
+# Disable DPMS
+cat >/etc/X11/xorg.conf.d/20-dpms.conf << _EOF_
+Section "ServerFlags"
+    Option "BlankTime" "0"
+EndSection
+Section "Extensions"
+    Option "DPMS" "false"
+EndSection
+_EOF_
 
 cat >/etc/X11/xorg.conf.d/10-lxc-input.conf << _EOF_
 Section "ServerFlags"
